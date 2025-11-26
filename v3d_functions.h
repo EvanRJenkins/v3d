@@ -51,6 +51,23 @@ void v3d_plane_normal(v3d_plane_t * plane1, v3d_t * vresult) // Find plane norm 
   v3d_cross(&t1, &t2, vresult); // Return norm of plane
 }
 
+double v3d_plane_angle_of_intersection(v3d_plane_t * plane1, v3d_plane_t * plane2)
+{
+  v3d_t n1;
+  v3d_plane_normal(plane1, &n1);
+  v3d_t n2;
+  v3d_plane_normal(plane2, &n2);
+  double numerator = v3d_dot(&n1, &n2);
+  if (numerator < 0)
+  {
+    numerator = -numerator;
+  }
+  double denominator = (v3d_mag(&n1) * v3d_mag(&n2));
+  printf("Numerator: %f\n", numerator);
+  printf("Denominator: %f\n", denominator);
+  return acos(numerator / denominator);
+}
+
 double v3d_dist_point_to_plane(v3d_plane_t * plane1, v3d_t * point)
 {
   v3d_t plane_normal;                       // plane normal vector
