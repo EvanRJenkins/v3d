@@ -51,7 +51,21 @@ void v3d_plane_normal(v3d_plane_t * plane1, v3d_t * vresult) // Find plane norm 
   v3d_cross(&t1, &t2, vresult); // Return norm of plane
 }
 
-
+double v3d_dist_point_to_plane(v3d_plane_t * plane1, v3d_t * point)
+{
+  v3d_t plane_normal;                       // plane normal vector
+  v3d_plane_normal(plane1, &plane_normal);  //
+  v3d_t point_vector;                           // point to plane
+  v3d_sub(point, &plane1->plv1, &point_vector); // vector
+  
+  double numerator = v3d_dot(&point_vector, &plane_normal); // dot of both
+  if (numerator < 0)
+  {
+    numerator = -numerator; // absolute value
+  }
+  double denominator = v3d_mag(&plane_normal);
+  return (numerator / denominator);
+}
 
 
 
