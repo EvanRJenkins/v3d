@@ -42,4 +42,18 @@ double v3d_angle(v3d_t *v1, v3d_t *v2)  // Return angle between two vectors (in 
     return acos(numerator / denominator);
 }
 
+void v3d_plane_normal(v3d_plane_t * plane1, v3d_t * vresult) // Find plane norm and write to vresult
+{
+  v3d_t t1;                                   //
+  v3d_sub(&plane1->plv2, &plane1->plv1, &t1); //
+  v3d_t t2;                                   // normal calc
+  v3d_sub(&plane1->plv3, &plane1->plv1, &t2); //
+  v3d_cross(&t1, &t2, vresult); // Return norm of plane
+}
+
+
+
+
+
+
 #endif  // V3D_FUNCTIONS_H
